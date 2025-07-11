@@ -2,11 +2,7 @@ import { getPostBySlug, getAllPostSlugs } from '@/lib/api';
 import { PortableText } from '@portabletext/react';
 import { Post } from '@/lib/types';
 
-interface PostPageProps {
-  params: { slug: string };
-}
-
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage({ params }: { params: { slug: string } }) {
   const post: Post = await getPostBySlug(params.slug);
 
   if (!post) {
