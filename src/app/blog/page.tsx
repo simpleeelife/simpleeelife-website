@@ -1,15 +1,16 @@
 import { getAllPosts } from '@/lib/api';
 import Link from 'next/link';
+import { Post } from '@/lib/types';
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
+  const posts: Post[] = await getAllPosts();
 
   return (
     <section className="blog" id="blog">
       <div className="container">
         <h2 className="section-title">最新の記事</h2>
         <div className="blog-grid">
-          {posts.map((post: any) => (
+          {posts.map((post: Post) => (
             <article key={post._id} className="blog-card">
               <Link href={`/blog/${post.slug.current}`}>
                 <div className="blog-image">記事サムネイル</div>

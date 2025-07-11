@@ -1,8 +1,9 @@
 import { getPostBySlug, getAllPostSlugs } from '@/lib/api';
 import { PortableText } from '@portabletext/react';
+import { Post } from '@/lib/types';
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
+  const post: Post = await getPostBySlug(params.slug);
 
   if (!post) {
     return <div>記事が見つかりませんでした。</div>;
@@ -31,7 +32,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 }
 
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
+  const slugs: { slug: string }[] = await getAllPostSlugs();
   return slugs.map((s: { slug: string }) => ({
     slug: s.slug,
   }));
