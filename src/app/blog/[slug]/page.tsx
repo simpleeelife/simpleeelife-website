@@ -31,7 +31,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
   );
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const slugs: { slug: string }[] = await getAllPostSlugs();
   return slugs.map((s: { slug: string }) => ({
     slug: s.slug,
