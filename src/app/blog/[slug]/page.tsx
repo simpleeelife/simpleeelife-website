@@ -24,6 +24,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           )}
         </p>
         <div className="post-body">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <PortableText value={post.body} />
         </div>
       </div>
