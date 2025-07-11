@@ -3,7 +3,7 @@ export interface Post {
   title: string;
   slug: { current: string };
   publishedAt: string;
-  body: any; // PortableTextの型は複雑なので、ここではanyで一時的に対応
+  body: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   author: string;
   categories: string[];
 }
