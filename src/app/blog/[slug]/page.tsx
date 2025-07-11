@@ -1,8 +1,9 @@
 import { getPostBySlug, getAllPostSlugs } from '@/lib/api';
 import { PortableText } from '@portabletext/react';
 import { Post } from '@/lib/types';
+import { PageProps } from 'next';
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: PageProps<{ slug: string }>) {
   const post: Post = await getPostBySlug(params.slug);
 
   if (!post) {
