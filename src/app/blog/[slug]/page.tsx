@@ -2,7 +2,11 @@ import { getPostBySlug, getAllPostSlugs } from '@/lib/api';
 import { PortableText } from '@portabletext/react';
 import { Post } from '@/lib/types';
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+interface PostPageProps {
+  params: { slug: string };
+}
+
+export default async function PostPage({ params }: PostPageProps) {
   const post: Post = await getPostBySlug(params.slug);
 
   if (!post) {
@@ -24,7 +28,6 @@ export default async function PostPage({ params }: { params: { slug: string } })
           )}
         </p>
         <div className="post-body">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <PortableText value={post.body} />
         </div>
       </div>

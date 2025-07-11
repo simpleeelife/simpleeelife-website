@@ -10,7 +10,6 @@ export default async function BlogPage() {
       <div className="container">
         <h2 className="section-title">最新の記事</h2>
         <div className="blog-grid">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {posts.map((post: Post) => (
             <article key={post._id} className="blog-card">
               <Link href={`/blog/${post.slug.current}`}>
