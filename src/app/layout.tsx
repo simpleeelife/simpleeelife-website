@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import "@/styles/styles.css";
+import Script from 'next/script';
+import Link from 'next/link';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -22,7 +24,38 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={notoSansJP.className}>
+        {/* スターフィールド */}
+        <div className="stars" id="stars"></div>
+        {/* ナビゲーション */}
+        <nav>
+          <div className="nav-container">
+            <Link href="/"><div className="logo">SIMPLEEELIFE</div></Link>
+            <ul className="nav-links">
+              <li><a href="#profile">プロフィール</a></li>
+              <li><a href="/blog">ブログ</a></li>
+              <li><a href="#community">コミュニティ</a></li>
+              <li><a href="#special" className="special-btn">特典動画</a></li>
+            </ul>
+            <div className="hamburger" id="hamburger-menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </nav>
+
+        <div className="mobile-menu" id="mobile-menu">
+          <ul className="mobile-nav-links">
+            <li><a href="#profile">プロフィール</a></li>
+            <li><a href="/blog">ブログ</a></li>
+            <li><a href="#community">コミュニティ</a></li>
+            <li><a href="#special" className="special-btn">特典動画</a></li>
+          </ul>
+        </div>
+
         {children}
+
+        <Script src="/js/main.js" strategy="lazyOnload" />
       </body>
     </html>
   );

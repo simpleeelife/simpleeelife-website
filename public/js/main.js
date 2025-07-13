@@ -1,4 +1,4 @@
-        // スターフィールドの生成
+// スターフィールドの生成
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const numberOfStars = 100;
@@ -40,6 +40,24 @@
             });
         });
 
+        // ハンバーガーメニューのトグル
+        const hamburger = document.getElementById('hamburger-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                mobileMenu.classList.toggle('open');
+            });
+
+            // モバイルメニューのリンクをクリックしたらメニューを閉じる
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    mobileMenu.classList.remove('open');
+                });
+            });
+        }
+
         // ページロード時の初期化
         createStars();
-    

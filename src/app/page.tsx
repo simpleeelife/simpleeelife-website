@@ -1,30 +1,16 @@
 import Script from 'next/script';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <>
-      {/* スターフィールド */}
-      <div className="stars" id="stars"></div>
-
-      {/* ナビゲーション */}
-      <nav>
-        <div className="nav-container">
-          <div className="logo">SIMPLEEELIFE</div>
-          <ul className="nav-links">
-            <li><a href="#profile">プロフィール</a></li>
-            <li><a href="#blog">ブログ</a></li>
-            <li><a href="#community">コミュニティ</a></li>
-            <li><a href="#special" className="special-btn">特典動画</a></li>
-          </ul>
-        </div>
-      </nav>
-
       {/* ヒーローセクション */}
       <section className="hero" id="home">
         <div className="hero-content">
+          <p className="hero-logo">SIMPLEEELIFE</p>
           <h1>こんがらがった人生を<br />シンプルな線にする知のレシピ</h1>
           <p className="hero-subtitle">意識の深淵から、あなたの本質へ</p>
-          <a href="#blog" className="hero-btn">ブログを読む</a>
+          <a href="/blog" className="hero-btn">ブログを読む</a>
         </div>
       </section>
 
@@ -33,7 +19,9 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title">シンプリィライフについて</h2>
           <div className="profile-content">
-            <div className="profile-image"></div>
+            <div className="profile-image">
+              <Image src="/images/アイコン.JPG" alt="シンプリィライフのアイコン" width={300} height={300} className="rounded-full" />
+            </div>
             <div className="profile-text">
               <h3>あなたの「人生をより良くしたい」という<br />根源的な欲求に応える</h3>
               <p>
@@ -56,12 +44,10 @@ export default function Home() {
           <h2 className="section-title">著書のご案内</h2>
           <div className="book-content">
             <div className="book-image">
-              『ぜんぶ無意識のせい。<br />
-              こんがらがった人生を<br />
-              シンプルにする知のレシピ』
+              <Image src="/images/書影.png" alt="ぜんぶ無意識のせい。書影" width={350} height={500} />
             </div>
             <div className="book-info">
-              <h3>ぜんぶ無意識のせい。<br />こんがらがった人生をシンプルにする知のレシピ</h3>
+              <h3><span style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>ぜんぶ無意識のせい。</span><br /><span style={{ fontSize: '1.5rem' }}>こんがらがった人生をシンプルにする知のレシピ</span></h3>
               <p className="book-description">
                 私たちの行動の95%は無意識によって支配されています。
                 本書では、最新の脳科学と心理学の知見をもとに、
@@ -78,8 +64,8 @@ export default function Home() {
                 </ul>
               </div>
               <div className="book-buttons">
-                <a href="#" className="btn">Amazonで購入</a>
-                <a href="#" className="btn">楽天ブックスで購入</a>
+                <a href="https://www.amazon.co.jp/dp/4046074027" className="btn">Amazonで購入</a>
+                <a href="https://books.rakuten.co.jp/rb/18134844/" className="btn">楽天ブックスで購入</a>
               </div>
             </div>
           </div>
