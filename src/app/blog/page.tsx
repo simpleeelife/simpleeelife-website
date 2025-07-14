@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/api';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Post } from '@/lib/types';
 
 // Sidebar Widget Component
@@ -38,9 +39,24 @@ export default async function BlogPage() {
             {posts.slice(0, 3).map((post: Post) => (
               <article key={post._id} className="blog-page-post-card">
                 <Link href={`/blog/${post.slug.current}`}>
-                  {/* Image Placeholder */}
-                  <div className="blog-page-post-card-image" style={{ background: 'linear-gradient(45deg, #007bff, #00d2ff)' }}>
-                    アイキャッチ画像
+                  <div className="blog-page-post-card-image" style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+                    {post.slug.current === 'planetes' ? (
+                      <Image 
+                        src="/images/planetes-thumbnail.png" 
+                        alt="Planetesサムネイル" 
+                        fill 
+                        style={{ objectFit: 'cover', borderRadius: '8px' }}
+                      />
+                    ) : (
+                      <div style={{ 
+                        background: 'linear-gradient(45deg, #007bff, #00d2ff)', 
+                        width: '100%', 
+                        height: '100%', 
+                        borderRadius: '8px' 
+                      }}>
+                        アイキャッチ画像
+                      </div>
+                    )}
                   </div>
                   <div className="blog-page-post-card-content">
                     <p className="blog-page-post-card-date">{new Date(post.publishedAt).toLocaleDateString()}</p>
