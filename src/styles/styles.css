@@ -144,6 +144,44 @@
             color: var(--accent-blue);
         }
 
+        /* ブログページ用ナビゲーションスタイル */
+        .blog-nav-theme {
+            background: rgba(255, 255, 255, 0.9) !important; /* 白背景 */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .blog-nav-theme .logo {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: unset !important;
+            color: #333333 !important; /* 黒文字 */
+        }
+
+        .blog-nav-theme .nav-links a {
+            color: #333333 !important; /* 黒文字 */
+        }
+
+        .blog-nav-theme .nav-links a:hover {
+            color: #0066cc !important; /* 青色 */
+        }
+
+        .blog-nav-theme .hamburger span {
+            background-color: #333333 !important;
+        }
+
+        .blog-mobile-menu-theme {
+            background: rgba(255, 255, 255, 0.98) !important;
+        }
+
+        .blog-mobile-menu-theme .mobile-nav-links a {
+            color: #333333 !important;
+        }
+
+        .blog-mobile-menu-theme .mobile-nav-links a:hover {
+            color: #0066cc !important;
+        }
+
         /* ヒーローセクション */
         .hero {
             height: 100vh;
@@ -695,4 +733,144 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3); /* 怪しい光 */
         }
-    
+
+/* blog_template_v2.html のスタイルをここに追記 */
+.blog-page-body {
+    background-color: #f5f5f5;
+    color: #333333;
+    line-height: 1.6;
+}
+.blog-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.blog-page-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 80px 0 30px; /* 上部のパディングを増やしてメニューバーとの重なりを解消 */
+    margin-bottom: 30px;
+}
+.blog-page-header-content {
+    display: flex;
+    align-items: center;
+}
+.blog-page-header-icon {
+    font-size: 32px; /* アイコンを少し小さく */
+    margin-right: 15px;
+}
+.blog-page-header-title h1 {
+    font-size: 36px; /* タイトルを小さく */
+    font-weight: bold;
+    margin: 0;
+}
+.blog-page-header-title p {
+    font-size: 14px; /* サブタイトルを小さく */
+    color: #666;
+    margin: 0;
+}
+.blog-page-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+.blog-page-main-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    align-items: start; /* 追加 */
+}
+.blog-page-post-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+.blog-page-post-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.blog-page-post-card-image {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+.blog-page-post-card-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.blog-page-post-card-date {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 8px;
+}
+.blog-page-post-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    flex-grow: 0; /* 伸びないように */
+}
+.blog-page-post-card-excerpt {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+    flex-grow: 0; /* 伸びないように */
+}
+.blog-page-widget {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.blog-page-widget-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+.blog-page-widget-title span {
+    margin-right: 10px;
+}
+.blog-page-widget-content img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+.blog-page-widget-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.blog-page-widget-content li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.blog-page-widget-content li:last-child {
+    border-bottom: none;
+}
+@media (max-width: 1024px) {
+    .blog-page-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .blog-page-header-title h1 {
+        font-size: 36px;
+    }
+    .blog-page-header-icon {
+        font-size: 32px;
+    }
+    .blog-page-main-content {
+        grid-template-columns: 1fr;
+    }
+}
