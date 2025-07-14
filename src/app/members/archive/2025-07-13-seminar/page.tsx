@@ -343,7 +343,7 @@ export default function SeminarPage() {
         </section>
 
         {/* Final Question Section */}
-        <section id="question-5" className="min-h-screen relative flex items-center justify-center text-center p-6 bg-cover bg-center bg-fixed" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1537420327992-d6e192287183?q=80&w=1950&auto=format&fit=crop')` }}>
+        <section id="question-5" className="min-h-screen relative flex items-center justify-center text-center p-6 bg-cover bg-center bg-fixed" style={{ backgroundImage: 'url(/images/seminar/question-5-bg.jpg)' }}>
           <div className="absolute inset-0 bg-black opacity-60"></div>
           <div className="relative z-10 fade-in">
             <h3 className="font-mincho font-bold text-3xl md:text-5xl text-white leading-relaxed" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
