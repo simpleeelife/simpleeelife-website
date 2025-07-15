@@ -38,9 +38,9 @@ export default async function BlogPage() {
           <main className="blog-page-main-content">
             {posts.slice(0, 3).map((post: Post) => (
               <article key={post._id} className="blog-page-post-card">
-                <Link href={`/blog/${post.slug.current}`}>
+                <Link href={`/blog/${post.slug}`}>
                   <div className="blog-page-post-card-image" style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
-                    {post.slug.current === 'planetes' ? (
+                    {post.slug === 'planetes' ? (
                       <Image 
                         src="/images/planetes-thumbnail.png" 
                         alt="Planetesサムネイル" 
