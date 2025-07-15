@@ -1,14 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import { getPostBySlug } from '@/lib/api';
+import { getPostBySlug, getAllPosts } from '@/lib/api';
 import { PortableText } from '@portabletext/react';
 import { Post } from '@/lib/types';
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post: Post = await getPostBySlug(params.slug);
+  console.log('Requested slug:', params.slug);
+  
+  const post: Post | null = await getPostBySlug(params.slug);
+  console.log('Fetched post:', post);
 
   if (!post) {
+    console.error(`No post found with slug: ${params.slug}`);
     return <div>記事が見つかりませんでした。</div>;
   }
 
@@ -72,4 +76,14 @@ export default async function PostPage({ params }: { params: { slug: string } })
   );
 }
 
-// 静的パラメータ生成を削除
+export async function generateStaticParams() {
+  try {
+    const posts = await getAllPosts();
+    return posts.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
