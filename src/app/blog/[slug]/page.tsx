@@ -61,9 +61,14 @@ export default async function PostPage({ params }: { params: { slug: string } })
 export async function generateStaticParams() {
   try {
     const posts: Post[] = await getAllPosts();
-    return posts.map((post: Post) => ({
-      slug: post.slug,
-    }));
+    return posts.map((post: Post) => {
+      console.log('Generating static param for post:', post);
+      return {
+        params: {
+          slug: post.slug || '', // Ensure a string is always returned
+        },
+      };
+    });
   } catch (error) {
     console.error('Error generating static params:', error);
     return [];

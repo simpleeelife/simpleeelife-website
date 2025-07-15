@@ -1,5 +1,5 @@
 import { createClient } from 'next-sanity';
-import { Post } from './types';
+import { Post, SanityPost, mapSanityPostToPost } from './types';
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -13,14 +13,15 @@ export async function getAllPosts(): Promise<Post[]> {
   const query = `*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
-    "slug": slug.current,
+    slug,
     publishedAt,
     body,
-    "author": author->name,
+    "author": author->{name},
     "mainImage": mainImage.asset->url,
     "categories": categories[]->title
   }`;
-  return await client.fetch(query);
+  const sanityPosts: SanityPost[] = await client.fetch(query);
+  return sanityPosts.map(mapSanityPostToPost);
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
@@ -28,21 +29,21 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const query = `*[_type == "post" && slug.current == $slug][0] {
       _id,
       title,
-      "slug": slug.current,
+      slug,
       publishedAt,
       body,
-      "author": author->name,
+      "author": author->{name},
       "mainImage": mainImage.asset->url,
       "categories": categories[]->title
     }`;
-    const post = await client.fetch(query, { slug });
+    const sanityPost: SanityPost | null = await client.fetch(query, { slug });
     
-    if (!post) {
+    if (!sanityPost) {
       console.error(`No post found with slug: ${slug}`);
       return null;
     }
     
-    return post;
+    return mapSanityPostToPost(sanityPost);
   } catch (error) {
     console.error('Error fetching post:', error);
     throw error;
