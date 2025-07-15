@@ -48,6 +48,13 @@ export default async function BlogPage() {
                         fill 
                         style={{ objectFit: 'cover', borderRadius: '8px' }}
                       />
+                    ) : post.slug.current === 'mailmagazine20250224' ? (
+                      <Image 
+                        src="/images/mailmagazine-thumbnail20250224.png" 
+                        alt="メルマガサムネイル" 
+                        fill 
+                        style={{ objectFit: 'cover', borderRadius: '8px' }}
+                      />
                     ) : (
                       <div style={{ 
                         background: 'linear-gradient(45deg, #007bff, #00d2ff)', 
