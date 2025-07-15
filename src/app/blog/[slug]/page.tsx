@@ -1,8 +1,6 @@
-'use client';
-
 import Image from 'next/image';
 import { getPostBySlug, getAllPosts } from '@/lib/api';
-import { PortableText } from '@portabletext/react';
+import PortableTextRenderer from '@/components/PortableTextRenderer';
 import { Post } from '@/lib/types';
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
@@ -51,23 +49,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         </header>
 
         <main className="article-body">
-          <PortableText 
-            value={post.body} 
-            components={{
-              block: {
-                normal: ({children}) => <p>{children}</p>,
-                h2: ({children}) => <h2>{children}</h2>,
-                h3: ({children}) => <h3>{children}</h3>
-              },
-              marks: {
-                link: ({children, value}) => (
-                  <a href={value.href} target="_blank" rel="noopener noreferrer">
-                    {children}
-                  </a>
-                )
-              }
-            }} 
-          />
+          <PortableTextRenderer value={post.body} />
         </main>
       </div>
 
