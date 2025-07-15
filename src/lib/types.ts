@@ -1,7 +1,7 @@
 export interface Post {
   _id: string;
   title: string;
-  slug: string;
+  slug: { current: string };
   publishedAt: string;
   body: any[];
   author?: string;
@@ -24,7 +24,7 @@ export function mapSanityPostToPost(sanityPost: SanityPost): Post {
   return {
     _id: sanityPost._id,
     title: sanityPost.title,
-    slug: sanityPost.slug.current,
+    slug: { current: sanityPost.slug.current },
     publishedAt: sanityPost.publishedAt,
     body: sanityPost.body,
     author: sanityPost.author?.name,

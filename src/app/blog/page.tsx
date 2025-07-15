@@ -16,6 +16,7 @@ const SidebarWidget = ({ title, children, icon }: { title: string; children: Rea
 
 export default async function BlogPage() {
   const posts: Post[] = await getAllPosts();
+  console.log('Fetched posts:', posts);
 
   return (
     <div className="blog-page-body pt-24">

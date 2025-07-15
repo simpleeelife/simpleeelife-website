@@ -10,7 +10,7 @@ const client = createClient({
 });
 
 export async function getAllPosts(): Promise<Post[]> {
-  const query = `*[_type == "post"] | order(publishedAt desc) {
+  const query = `*[_type == "post" && publishedAt <= now()] | order(publishedAt desc) {
     _id,
     title,
     slug,
