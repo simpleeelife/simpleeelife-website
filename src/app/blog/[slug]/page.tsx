@@ -1,76 +1,59 @@
-import Image from 'next/image';
-import { getPostBySlug, getAllPosts } from '@/lib/api';
-import PortableTextRenderer from '@/components/PortableTextRenderer';
-import { Post } from '@/lib/types';
+import { getPostBySlug, getAllPosts } from '@/lib/api'
+import PortableTextRenderer from '@/components/PortableTextRenderer'
+import { Post } from '@/lib/types'
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
-  console.log('Requested slug:', params.slug);
-  
-  const post: Post | null = await getPostBySlug(params.slug);
-  console.log('Fetched post:', post);
+  const post: Post | null = await getPostBySlug(params.slug)
 
   if (!post) {
-    console.error(`No post found with slug: ${params.slug}`);
-    return <div>記事が見つかりませんでした。</div>;
+    return (
+      <div className="article-container">
+        <div className="text-center py-12">
+          <p>記事が見つかりませんでした。</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <>
-      {/* ヘッダーセクション削除 */}
-
-      <div className="article-container">
-        <div className="article-thumbnail">
-          <Image 
-            src="/images/planetes-thumbnail.png" 
-            alt="Planetesサムネイル" 
-            fill 
-            style={{ objectFit: 'cover' }}
-          />
+    <div className="article-container">
+      <header className="article-header">
+        <h1 className="article-title">{post.title}</h1>
+        <p className="article-meta">
+          <span>投稿日: {new Date(post.publishedAt).toLocaleDateString()}</span>
+          {post.author && <span>ライター: {post.author}</span>}
+          {/* プレースホルダー: ビュー数 */}
+          <span>View: 0</span>
+        </p>
+        
+        <div className="like-section">
+          <button className="like-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span>いいね！</span>
+          </button>
+          <p className="like-count">0</p>
         </div>
+      </header>
 
-        <header className="article-header">
-          <h1 className="article-title">{post.title}</h1>
-          <p className="article-meta">
-            <span>投稿日: {new Date(post.publishedAt).toLocaleDateString()}</span>
-            {post.author && <span>ライター: {post.author}</span>}
-            {/* プレースホルダー: ビュー数 */}
-            <span>View: 0</span>
-          </p>
-          
-          <div className="like-section">
-            <button className="like-button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-              <span>いいね！</span>
-            </button>
-            <p className="like-count">0</p>
-          </div>
-        </header>
-
-        <main className="article-body">
-          <PortableTextRenderer value={post.body} />
-        </main>
-      </div>
+      <main className="article-body">
+        <PortableTextRenderer value={post.body} />
+      </main>
 
       <link rel="stylesheet" href="/blog/styles.css" />
-    </>
-  );
+    </div>
+  )
 }
 
 export async function generateStaticParams() {
   try {
-    const posts: Post[] = await getAllPosts();
-    return posts.map((post: Post) => {
-      console.log('Generating static param for post:', post);
-      return {
-        params: {
-          slug: post.slug || '', // Ensure a string is always returned
-        },
-      };
-    });
+    const posts = await getAllPosts()
+    return posts.map((post) => ({
+      slug: post.slug.current
+    }))
   } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
+    console.error('Error generating static params:', error)
+    return []
   }
 }

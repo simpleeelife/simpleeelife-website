@@ -1,27 +1,31 @@
-import { createClient } from 'next-sanity';
-import { Post, SanityPost, mapSanityPostToPost } from './types';
+import { createClient } from '@sanity/client'
+import { Post } from './types'
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: '2023-05-03',
+  apiVersion: '2024-02-16',
   useCdn: false,
-  token: process.env.SANITY_READ_TOKEN, // 読み取り専用トークンを追加
-});
+})
 
 export async function getAllPosts(): Promise<Post[]> {
-  const query = `*[_type == "post" && publishedAt <= now()] | order(publishedAt desc) {
-    _id,
-    title,
-    slug,
-    publishedAt,
-    body,
-    "author": author->{name},
-    "mainImage": mainImage.asset->url,
-    "categories": categories[]->title
-  }`;
-  const sanityPosts: SanityPost[] = await client.fetch(query);
-  return sanityPosts.map(mapSanityPostToPost);
+  try {
+    const query = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+      _id,
+      title,
+      "slug": slug.current,
+      publishedAt,
+      "excerpt": pt::text(body[0]),
+      "categories": categories[]->{ _id, title }
+    }`
+
+    const posts = await client.fetch(query)
+    console.log('Posts fetched:', posts.length)
+    return posts
+  } catch (error) {
+    console.error('Error fetching posts:', error)
+    return []
+  }
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
@@ -29,23 +33,16 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const query = `*[_type == "post" && slug.current == $slug][0] {
       _id,
       title,
-      slug,
+      "slug": slug.current,
       publishedAt,
-      body,
-      "author": author->{name},
-      "mainImage": mainImage.asset->url,
-      "categories": categories[]->title
-    }`;
-    const sanityPost: SanityPost | null = await client.fetch(query, { slug });
-    
-    if (!sanityPost) {
-      console.error(`No post found with slug: ${slug}`);
-      return null;
-    }
-    
-    return mapSanityPostToPost(sanityPost);
+      "excerpt": pt::text(body[0]),
+      "categories": categories[]->{ _id, title },
+      body
+    }`
+
+    return await client.fetch(query, { slug })
   } catch (error) {
-    console.error('Error fetching post:', error);
-    throw error;
+    console.error('Error fetching post by slug:', error)
+    return null
   }
 }

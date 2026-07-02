@@ -2,7 +2,7 @@ import { getAllPosts } from '@/lib/api'
 import Link from 'next/link'
 import { Post } from '@/lib/types'
 
-export default async function BlogPage() {
+export default async function BlogNewPage() {
   const posts = await getAllPosts()
   console.log('Posts fetched:', posts.length)
 

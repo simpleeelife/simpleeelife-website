@@ -2,20 +2,54 @@ import { getAllPosts } from '@/lib/api'
 import Link from 'next/link'
 import { Post } from '@/lib/types'
 
-export default async function BlogPage() {
+export default async function NewsletterPage() {
   const posts = await getAllPosts()
   console.log('Posts fetched:', posts.length)
 
   return (
     <div className="blog-page-body pt-24">
-      {/* Blog Page Header */}
+      {/* Page Header */}
       <div className="blog-page-header">
-        <div className="blog-page-container">
+        <div className="blog-page-container relative">
           <div className="blog-page-header-content">
-            <div className="blog-page-header-icon">💡</div>
-            <div className="blog-page-header-title">
-              <h1>SIMPLEEELIFE BLOG</h1>
-              <p>こんがらがった人生をシンプルな線にする知のレシピ</p>
+            {/* PC表示用 */}
+            <div className="hidden md:block">
+              <div className="flex h-24 items-center">
+                <div>
+                  <h1 className="text-4xl font-bold tracking-wide">メルマガ</h1>
+                  <p className="mt-2 text-lg text-gray-600">SIMPLEEELIFEのメールマガジン配信履歴</p>
+                </div>
+                <a
+                  href="https://quickfunnelmaker.com/r/Y9IAYnl26PD1/register"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-btn absolute right-12"
+                >
+                  登録する
+                </a>
+              </div>
+            </div>
+            
+            {/* SP表示用 */}
+            <div className="flex w-full flex-col items-center justify-center md:hidden">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold">メルマガ</h1>
+                <p className="mt-2">SIMPLEEELIFEのメールマガジン配信履歴</p>
+              </div>
+              <div className="mt-8 flex w-full justify-center">
+                <div className="flex w-64 justify-center">
+                  <a
+                    href="https://quickfunnelmaker.com/r/Y9IAYnl26PD1/register"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hero-btn relative flex h-[52px] w-full items-center justify-center"
+                  >
+                    <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                      登録する
+                    </span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
